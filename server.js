@@ -13,6 +13,14 @@ app.get('/resume', (req, res) => {
     res.sendFile(__dirname + '/resume.html');
 });
 
+app.get('/card', (req, res) => {
+    res.sendFile(__dirname + '/card.html');
+});
+
 app.listen(port, () => {
     console.log(`Server Running on http://localhost:${port}`);
 })
+
+
+// how to use templates in express
+// Path: templates/index.html
