@@ -16,6 +16,9 @@ app.get('/', (req, res) => {
 app.get('/resume', (req, res) => {
     res.sendFile(__dirname + '/resume.html');
 });
+app.get('/card', (req, res) => {
+    res.sendFile(__dirname + '/card.html');
+});
 
 mongoose.set('strictQuery', true);
 mongoose.connect(
@@ -32,3 +35,6 @@ mongoose.connect(
         }
     }
 );
+
+// how to use templates in express
+// Path: templates/index.html
