@@ -25,7 +25,6 @@ app.get('/getAllUsers', (req, res) => {
         if (err) {
             res.send(err);
         } else {
-            console.log(result);
             res.send(result);
         }
     })
