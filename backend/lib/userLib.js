@@ -17,7 +17,10 @@ module.exports.getAllUsers = async function(callBack) {
 module.exports.getSingleUser = async function(filterQuery, callBack) {
     try {
         var user = await userModel.findOne(filterQuery);
-        callBack(null, user);
+        if (!user)
+            callBack("User not found", null);
+        else
+            callBack(null, user);
     } catch (err) {
         callBack(err, null);
     }
@@ -25,23 +28,46 @@ module.exports.getSingleUser = async function(filterQuery, callBack) {
 
 // delete single user 
 // module.exports.deleteSingleUser = async function(filterQuery, callBack) {
+module.exports.deleteSingleUser = async function(filterQuery, callBack) {
+    try {
+        let user = await userModel.findOne(filterQuery);
 
+        if (!user) {
+            callBack("No user exist with query", null);
+            return;
+        }
+
+        let modifiedUser = await userModel.findOneAndUpdate(filterQuery, { isDeleted: true }, { new: true });
+        callBack(null, modifiedUser);
+    } catch (err) {
+        callBack(err, null);
+    }
+};
 // }
 // update single user
+module.exports.updateSingleUser = async function(filterQuery, updatedObject, callBack) {
+    try {
+        let user = await userModel.findOne(filterQuery);
+        if (!user) {
+            callBack("No user exist with query", null);
+            return;
+        }
+
+        let modifiedUser = await userModel.findOneAndUpdate(filterQuery, updatedObject, { new: true });
+        callBack(null, modifiedUser);
+    } catch (err) {
+        callBack(err, null);
+    }
+};
 
 // createFirstUser
 module.exports.createAUser = async function(user, callBack) {
     try {
-        var isUserExist = false;
-        await this.getSingleUser(user, (err, res) => {
-            if (err | !res) {
-                callBack(err ? err : "User Already exist", null);
-                isUserExist = !res;
-            }
-        })
+        let isUserExist = await userModel.findOne(user);
 
-        if (!isUserExist) {
-
+        if (isUserExist) {
+            callBack(`User with username ${user.username} Already exist `, null);
+        } else {
             var newUser = new userModel(user);
             var result = await newUser.save();
 
