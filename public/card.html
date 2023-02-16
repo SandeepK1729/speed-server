@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sandeep | Cards</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        
+        .card {
+            width: 20%;
+            border: solid 1px gray;
+            transition: 0.1s;
+            box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+        
+        .card:hover {
+            transition: 0.1s;
+            box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+        
+        .container {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-section">
+        <h2>Card</h2>
+        <div class="card">
+            <img id="userLogo" src="https://img.redro.pl/naklejki/user-icon-vector-people-icon-profile-vector-icon-person-illustration-business-user-icon-users-group-symbol-male-user-symbol-700-223068871.jpg" alt="User Logo" width="100%">
+            <div class="container">
+                <h2 id="userTitle">Konda Sandeep</h2>
+                <p id="userGender">Gender</p>
+                <button onclick="toggleUser()">Toggle</button>
+                <button onclick="shuffle()">Shuffle</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        var userOne = {
+            "name": "Konda Sandeep",
+            "gender": "Male",
+            "imgUrl": "https://img.redro.pl/naklejki/user-icon-vector-people-icon-profile-vector-icon-person-illustration-business-user-icon-users-group-symbol-male-user-symbol-700-223068871.jpg",
+        }
+        var userTwo = {
+            "name": "Chanakya",
+            "gender": "Male",
+            "imgUrl": "https://cdn-icons-png.flaticon.com/512/1946/1946429.png"
+        }
+        var isUserOne = true;
+
+        function display(user) {
+            document.getElementById('userTitle').innerHTML = user.name;
+            document.getElementById('userGender').innerHTML = user.gender;
+            document.getElementById('userLogo').src = user.imgUrl;
+        }
+
+        function shuffle() {
+            // fetch data from api
+            fetch('https://randomuser.me/api/')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    var user = {
+                        "name": data.results[0].name.first + " " + data.results[0].name.last,
+                        "gender": data.results[0].gender,
+                        "imgUrl": data.results[0].picture.large
+                    }
+                    display(user);
+                });
+        }
+
+        function toggleUser() {
+            if (isUserOne) {
+                isUserOne = false;
+                display(userTwo);
+            } else {
+                isUserOne = true;
+                display(userOne);
+
+            }
+        }
+    </script>
+</body>
+
+</html>

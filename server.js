@@ -6,8 +6,13 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 5050;
 
-app.use('/static', express.static('static'));
-app.use('/templates', express.static('templates'));
+const options = {
+    extensions: ['htm', 'html', 'css', 'js', 'ico', 'jpg', 'jpeg', 'png', 'svg'],
+    index: ['index.html'],
+}
+app.use(express.static("public"));
+// app.use('/static', express.static('static'));
+// app.use('/templates', express.static('templates'));
 
 app.use(
     express.urlencoded({
@@ -18,13 +23,13 @@ app.use(express.json());
 
 app.get('/', (req, res) => {
     // res.send("Hello, Sandeep!");
-    res.sendFile(__dirname + '/templates/index.html');
+    res.sendFile('index.html');
 });
 app.get('/resume', (req, res) => {
-    res.sendFile(__dirname + '/templates/resume.html');
+    res.sendFile(__dirname + '/public/resume.html');
 });
 app.get('/card', (req, res) => {
-    res.sendFile(__dirname + '/templates/card.html');
+    res.sendFile(__dirname + '/public/card.html');
 });
 app.get('/getAllUsers', (req, res) => {
     userLib.getAllUsers((err, result) => {
@@ -39,7 +44,7 @@ app.post('/createUser', (req, res) => {
     userLib.createAUser(req.body, (err, result) => {
         res.send(err ? err : result);
     });
-})
+});
 app.post('/deleteUser', (req, res) => {
     console.log("My dear user : " + req.body.username);
     userLib.deleteSingleUser(req.body, (err, result) => {
