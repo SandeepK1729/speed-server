@@ -57,7 +57,9 @@ app.post('/updateUser', (req, res) => {
         res.send(err ? err : result);
     })
 });
-
+app.use('/weather', (req, res) => {
+    res.sendFile(__dirname + "/public/weather.html")
+})
 
 
 mongoose.set('strictQuery', true);
