@@ -98,7 +98,7 @@ app.get('/api/updateTodoById', (req, res) => {
         });
 });
 app.post('/api/deleteTodoById', (req, res) => {
-    todoLib.deleteTodoById(req.body.todoId, (err, result) => {
+    todoLib.deleteTodoById(req.query.todoId, (err, result) => {
         if (err) {
             res.send(err);
         } else {
