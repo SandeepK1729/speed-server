@@ -16,11 +16,13 @@ module.exports.getAllUsers = async function(callBack) {
 // getting single user
 module.exports.getSingleUser = async function(filterQuery, callBack) {
     try {
-        var user = await userModel.findOne(filterQuery);
-        if (!user)
+        var user = await userModel.find(filterQuery);
+        if (!user) {
             callBack("User not found", null);
-        else
+        } else {
             callBack(null, user);
+        }
+
     } catch (err) {
         callBack(err, null);
     }
