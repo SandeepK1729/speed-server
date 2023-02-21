@@ -1,0 +1,1 @@
+{"name":"Local: temp","url":"/workspaces/hello-server/temp.cpp","tests":[{"id":1676908532222,"input":"DAMP\nLIKE\n6\nDUMP\nLUMP\nLAMP\nLIMP\nLIME\nLIGHT","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/workspaces/hello-server/temp.cpp","group":"local","local":true}

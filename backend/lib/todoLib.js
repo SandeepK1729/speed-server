@@ -40,7 +40,9 @@ module.exports.getTodosByQuery = async function(query, callBack) {
 //getting single todo by id
 module.exports.getTodosById = async function(id, callBack) {
     try {
-        var res = await todoModel.find({ _id: id });
+        var res = await todoModel.find({
+            _id: mongoose.Types.ObjectId(id)
+        });
         callBack(null, res);
     } catch (err) {
         callBack(err, null);
@@ -50,12 +52,14 @@ module.exports.getTodosById = async function(id, callBack) {
 // update the todo by id 
 module.exports.updateTodoById = async function(id, updateQuery, callBack) {
     try {
-        var todo = await todoModel.find({ _id: id });
+        var todo = await todoModel.find({
+            _id: id // mongoose.Types.ObjectId(id)
+        });
+
         if (!todo) {
-            callBack(`todo with ${id} not exist`);
+            callBack(`todo with ${id} not exist`, null);
         } else {
-            var res = await todoModel.findOneAndUpdate({ _id: id }, updateQuery);
-            console.log(tod, res);
+            var res = await todoModel.findOneAndUpdate({ _id: id }, updateQuery, { new: true });
             callBack(null, res);
         }
     } catch (err) {

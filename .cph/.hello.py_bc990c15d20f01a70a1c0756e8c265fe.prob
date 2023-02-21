@@ -1,0 +1,1 @@
+{"name":"Local: hello","url":"/workspaces/hello-server/hello.py","tests":[{"id":1676910392375,"input":"1 2 9 null\n1 4 3 null","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/workspaces/hello-server/hello.py","group":"local","local":true}

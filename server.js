@@ -25,7 +25,7 @@ app.use(express.json());
 
 app.get('/', (req, res) => {
     // res.send("Hello, Sandeep!");
-    res.sendFile('index.html');
+    res.sendFile(__dirname + '/frontend/html/index.html');
 });
 app.get('/resume', (req, res) => {
     res.sendFile(__dirname + '/frontend/html/resume.html');
@@ -66,29 +66,85 @@ app.use('/weather', (req, res) => {
 
 
 // todo app api's
-app.post('/api/createTodo', (req, res) => {
-    todoLib.createTodo({
-            taskName: req.body.taskName
-        },
-        (err, result) => {
-            res.send(err ? err : result);
-        });
+app.get('/api/todos', (req, res) => {
+    todoLib.getAllTodos((err, result) => {
+        if (err)
+            res.json({
+                status: "error",
+                message: err,
+                data: null
+            });
+        else
+            res.json({
+                status: "success",
+                data: result
+            });
+    })
 });
-app.get('/api/getAllTodos', (req, res) => {
+// create todo app api's
+app.post('/api/todos', (req, res) => {
+    todoLib.createTodo(req.body, (err, result) => {
+        if (err)
+            res.json({
+                status: "error",
+                message: err,
+                data: null
+            });
+        else
+            res.json({
+                status: "success",
+                data: result
+            });
+    })
+});
+// update by id 
+app.put('/api/todos/:todoId', (req, res) => {
+    todoLib.updateTodoById(req.params.todoId, req.body, (err, result) => {
+        if (err)
+            res.json({
+                status: "error",
+                message: err,
+                data: null
+            });
+        else
+            res.json({
+                status: "success",
+                data: result
+            });
+    });
+});
+
+// delte by id
+app.delete('/api/todos/:todoId', (req, res) => {
+    todoLib.deleteTodoById(req.params.todoId, (err, result) => {
+        if (err)
+            res.json({
+                status: "error",
+                message: err,
+                data: null
+            });
+        else
+            res.json({
+                status: "success",
+                data: result
+            });
+    });
+});
+
+// get todo by id
+app.get('/api/todos/id', (req, res) => {
     todoLib.getAllTodos((err, result) => {
         res.send(err ? err : result);
     });
-})
+});
 app.get('/api/getTodosByQuery', (req, res) => {
     todoLib.getTodosByQuery(req.body, (err, result) => {
         res.send(err ? err : result);
     });
-})
+});
 app.get('/api/getTodosById', (req, res) => {
-    todoLib.getTodosById(req.body.todoId, (err, result) => {
-        res.send(err ? err : result);
-    });
-})
+
+});
 app.get('/api/updateTodoById', (req, res) => {
     todoLib.updateTodoById(
         req.body.todoId,
