@@ -24,9 +24,10 @@ app.use(
 app.use(express.json());
 
 app.get('/', (req, res) => {
-    res.send(__dirname);
+    console.log(__dirname);
+    console.log(templates);
     // res.send("Hello, Sandeep!");
-    // res.sendFile(templates + 'index.html');
+    res.sendFile(templates + 'index.html');
 });
 app.get('/resume', (req, res) => {
     res.sendFile(templates + 'resume.html');
