@@ -24,6 +24,8 @@ app.use(
 app.use(express.json());
 
 app.get('/', (req, res) => {
+    console.log(__dirname);
+    console.log(templates);
     // res.send("Hello, Sandeep!");
     res.sendFile(templates + 'index.html');
 });
