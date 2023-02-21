@@ -74,7 +74,7 @@ module.exports.deleteTodoById = async function(id, callBack) {
         if (!todo) {
             callBack(`todo with ${id} not exist`);
         } else {
-            var res = await todoModel.findOneAndDelete({ _id: id });
+            var res = await todoModel.findOneAndUpdate({ _id: id }, { isDeleted: true }, { new: true });
             callBack(null, res);
         }
     } catch (err) {

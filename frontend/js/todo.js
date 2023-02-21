@@ -17,12 +17,13 @@ let deletedCount = document.getElementById('deletedCount');
 
 function getAllTodos() {
     loader.style.display = "block";
-    fetch('/api/getAllTodos')
+    fetch('/api/todos')
         .then(function(res) {
 
             return res.json();
         })
-        .then(data => {
+        .then(res => {
+            let data = res.data;
             let todos = "",
                 completedTodos = "",
                 deletedTodos = "";
