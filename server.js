@@ -12,7 +12,7 @@ const options = {
     index: ['index.html'],
 }
 app.use(express.static("frontend"));
-
+const templates = __dirname + '/frontend/html/';
 // app.use('/static', express.static('static'));
 // app.use('/templates', express.static('templates'));
 
@@ -25,10 +25,10 @@ app.use(express.json());
 
 app.get('/', (req, res) => {
     // res.send("Hello, Sandeep!");
-    res.sendFile(__dirname + '/frontend/html/index.html');
+    res.sendFile(templates + 'index.html');
 });
 app.get('/resume', (req, res) => {
-    res.sendFile(__dirname + '/frontend/html/resume.html');
+    res.sendFile(templates + 'resume.html');
 });
 app.get('/card', (req, res) => {
     res.sendFile(__dirname + '/frontend/html/card.html');
